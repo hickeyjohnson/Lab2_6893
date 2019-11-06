@@ -22,7 +22,7 @@ public class MattHickeyTest {
 		MockDestination destination = new MockDestination();
 		ParagrapherI p = new Paragrapher(destination);
 		p.setWidth("Matthew Hickey".length());
-		String[] myName = {"Matthew", "Hickey"};
+		String[] myName = {"Matthew Hickey"};
 		p.addWord("Matthew");
 		p.addWord("Hickey");
 		p.ship();
