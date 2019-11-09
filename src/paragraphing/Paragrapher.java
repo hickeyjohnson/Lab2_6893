@@ -66,7 +66,7 @@ public class Paragrapher implements ParagrapherI {
 				else if (i < parts.length){
 					// check if part can fit on current line plus possible hyphen
 					if (lineLength + partLength + 1 <= width) {
-						addToLine(parts[i]));
+						addToLine(parts[i]);
 					} else {
 						addToLine("-");
 						lines.add(parts[i]);
