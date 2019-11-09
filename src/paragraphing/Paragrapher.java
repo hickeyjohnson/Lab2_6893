@@ -1,3 +1,4 @@
+//Matthew Hickey + Nathaniel Johnson
 package paragraphing;
 
 import java.util.ArrayList;
@@ -14,14 +15,12 @@ public class Paragrapher implements ParagrapherI {
 	private DestinationI dest;
 	
 	/**
-	 * Constructor for paragraph. Paragraph is initialized with default width and an empty line.
+	 * Constructor for paragraph. Paragraph is initialized with a default width. 
 	 */
 	public Paragrapher(DestinationI inDest) {
 		this.width = 20;
 		this.dest = inDest;
 		this.lines = new ArrayList<String>();
-		lines.add("");
-	
 	}
 	
 	@Override
@@ -45,10 +44,10 @@ public class Paragrapher implements ParagrapherI {
 				
 				if(lineLength == 0) {
 					// if it's the start of the line, add the part
-					lines.set(lines.size() - 1, lines.get(lines.size() - 1).concat(parts[i]));
+					addToLine(parts[i]);
 					// if it's the first part and its too long, add hyphen as well
 					if (partLength + 1 >= this.width && i == 0) {
-						lines.set(lines.size() - 1, lines.get(lines.size() - 1).concat("-"));
+						addToLine("-");
 						//make a new line in the paragraph 
 						lines.add("");
 					}
@@ -57,7 +56,8 @@ public class Paragrapher implements ParagrapherI {
 				else if (i == 0) {
 					// check if it can fit on the line, including hyphen
 					if (1 + partLength + 1 <= this.width) {
-						lines.set(lines.size() - 1, lines.get(lines.size() - 1).concat(" ").concat(parts[i]));
+						addToLine(" ");
+						addToLine(parts[i]);
 					}
 					else {
 						lines.add(parts[i]);
@@ -66,16 +66,16 @@ public class Paragrapher implements ParagrapherI {
 				else if (i < parts.length){
 					// check if part can fit on current line plus possible hyphen
 					if (lineLength + partLength + 1 <= width) {
-						lines.set(lines.size() - 1, lines.get(lines.size() - 1).concat(parts[i]));
+						addToLine(parts[i]));
 					} else {
-						lines.set(lines.size() - 1, lines.get(lines.size() - 1).concat("-"));
+						addToLine("-");
 						lines.add(parts[i]);
 					}
 				}
 				else {
 					// last element
 					if (lineLength + partLength <= width) {
-						lines.set(lines.size() - 1, lines.get(lines.size() - 1).concat(parts[i]));
+						addToLine(parts[i]);
 					} else {
 						lines.add(parts[i]);
 					}
@@ -97,10 +97,11 @@ public class Paragrapher implements ParagrapherI {
 		if(wordLength + lineLength + 1 <= this.width) {
 			// can add the word
 			if (lineLength != 0) {
-				lines.set(lines.size() - 1, lines.get(lines.size() - 1).concat(" ").concat(word));
+				addToLine(" ");
+				addToLine(word);
 			} else {
 				//no space required as it's the start of a line
-				lines.set(lines.size() - 1, lines.get(lines.size() - 1).concat(word));
+				addToLine(word);
 			}
 			
 		} 
@@ -125,9 +126,20 @@ public class Paragrapher implements ParagrapherI {
 	}
 	
 	/**
-	 * Returns the character length of the last (current) line in paragraph.
+	 * Returns the character length of the last (current) line in paragraph. If no lines, this method will make one.
 	 */
 	private int getCurrentLineLength() {
+		if(this.lines.isEmpty) {
+			lines.add("");
+		}
 		return this.lines.get(this.lines.size() - 1).length();
+	}
+	
+	/**
+	 * Append text to the current line.
+	 * @param - text: String to be appended to the line
+	 */
+	private void addToLine(String text) {
+		lines.set(lines.size() - 1, lines.get(lines.size() - 1).concat(text);
 	}
 }
