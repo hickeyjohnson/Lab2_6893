@@ -22,7 +22,7 @@ public class MattHickeyTest {
 		MockDestination destination = new MockDestination();
 		ParagrapherI p = new Paragrapher(destination);
 		p.setWidth("Matthew Hickey".length());
-		String[] myName = {"Matthew", "Hickey"};
+		String[] myName = {"Matthew Hickey"};
 		p.addWord("Matthew");
 		p.addWord("Hickey");
 		p.ship();
@@ -48,6 +48,7 @@ public class MattHickeyTest {
 	
 	@Test
 	public void extendLine() {
+		// If a word is too long to fit on a line and it's the start, fit anyway
 		MockDestination destination = new MockDestination();
 		ParagrapherI p = new Paragrapher(destination);
 		p.setWidth(10);
@@ -58,6 +59,59 @@ public class MattHickeyTest {
 		String[] expected = {
 				"I Love",
 				"Hyphenation"
+		};
+		assertArrayEquals(expected, destination.result());
+	}
+	
+	@Test
+	public void extendLineHypen() {
+		// Same as extend line but it will add the hypen to the too long line
+		MockDestination destination = new MockDestination();
+		ParagrapherI p = new Paragrapher(destination);
+		p.setWidth(7);
+		p.addWord("I");
+		p.addWord("Love");
+		p.addWord(new String[] {"Hyphenat", "ion"});
+		p.ship();
+		String[] expected = {
+				"I Love",
+				"Hyphenat-",
+				"ion"
+		};
+		assertArrayEquals(expected, destination.result());
+	}
+	
+	@Test
+	public void givenExample1() {
+		MockDestination destination = new MockDestination();
+		ParagrapherI p = new Paragrapher(destination);
+		p.setWidth(7);
+		p.addWord("This");
+		p.addWord("is");
+		p.addWord("a");
+		p.addWord(new String[] {"para", "graph"});
+		p.ship();
+		String[] expected = {
+				"This is",
+				"a para-",
+				"graph"
+		};
+		assertArrayEquals(expected, destination.result());
+		
+	}
+	
+	@Test
+	public void givenExample2() {
+		// One word, two hyphen points.
+		// Tests the decision to shorten line because hyphen would make it too long.
+		MockDestination destination = new MockDestination();
+		ParagrapherI p = new Paragrapher(destination);
+		p.setWidth(5);
+		p.addWord(new String[] {"123", "ab", "xy"});
+		p.ship();
+		String[] expected = {
+				"123-",
+				"abxy"
 		};
 		assertArrayEquals(expected, destination.result());
 	}
