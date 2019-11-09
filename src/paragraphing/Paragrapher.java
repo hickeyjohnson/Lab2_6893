@@ -28,7 +28,8 @@ public class Paragrapher implements ParagrapherI {
 
 	@Override
 	public void addWord(String[] parts) {
-		for(int i = 0; i < parts.length; i++) {
+		// iterate over each part of the word
+		for (int i = 0; i < parts.length; i++) {
 			int partLength = parts[i].length();
 			int lineLength;
 			if (this.lines.isEmpty()) {
@@ -41,8 +42,8 @@ public class Paragrapher implements ParagrapherI {
 			if(lineLength == 0) {
 				// if it's the start of the line
 				lines.set(lines.size() - 1, lines.get(lines.size() - 1).concat(parts[i]));
-				// if it's the first part and its too long, add hypen as well
-				if (partLength >= this.width && i == 0) {
+				// if it's the first part and its too long, add hyphen as well
+				if (partLength + 1 >= this.width && i == 0) {
 					lines.set(lines.size() - 1, lines.get(lines.size() - 1).concat("-"));
 					lines.add("");
 				}
@@ -52,6 +53,9 @@ public class Paragrapher implements ParagrapherI {
 				// check if it can fit on the line, including hyphen
 				if (1 + partLength + 1 <= this.width) {
 					lines.set(lines.size() - 1, lines.get(lines.size() - 1).concat(" ").concat(parts[i]));
+				}
+				else {
+					lines.add(parts[i]);
 				}
 			}
 			else if (i < parts.length){

@@ -64,6 +64,24 @@ public class MattHickeyTest {
 	}
 	
 	@Test
+	public void extendLineHypen() {
+		// Same as extend line but it will add the hypen to the too long line
+		MockDestination destination = new MockDestination();
+		ParagrapherI p = new Paragrapher(destination);
+		p.setWidth(7);
+		p.addWord("I");
+		p.addWord("Love");
+		p.addWord(new String[] {"Hyphenat", "ion"});
+		p.ship();
+		String[] expected = {
+				"I Love",
+				"Hyphenat-",
+				"ion"
+		};
+		assertArrayEquals(expected, destination.result());
+	}
+	
+	@Test
 	public void givenExample1() {
 		MockDestination destination = new MockDestination();
 		ParagrapherI p = new Paragrapher(destination);
@@ -84,7 +102,7 @@ public class MattHickeyTest {
 	
 	@Test
 	public void givenExample2() {
-		// One word, two hyphenation points.
+		// One word, two hyphen points.
 		// Tests the decision to shorten line because hyphen would make it too long.
 		MockDestination destination = new MockDestination();
 		ParagrapherI p = new Paragrapher(destination);
