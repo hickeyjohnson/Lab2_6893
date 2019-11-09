@@ -1,3 +1,4 @@
+// Matthew Hickey + Nathaniel Johnson
 package tests;
 
 import static org.junit.Assert.*;
@@ -112,6 +113,78 @@ public class MattHickeyTest {
 		String[] expected = {
 				"123-",
 				"abxy"
+		};
+		assertArrayEquals(expected, destination.result());
+	}
+	
+	@Test
+	public void superLongHyphenated() {
+		MockDestination destination = new MockDestination();
+		ParagrapherI p = new Paragrapher(destination);
+		p.setWidth(5);
+		p.addWord(new String[] {
+				"sup",
+				"ercalifr",
+				"agil",
+				"ist",
+				"icexp",
+				"ialidocious"
+		});
+		p.ship();
+		String[] expected = {
+				"sup-",
+				"ercalifr-",
+				"agil-",
+				"ist-",
+				"icexp-",
+				"ialidocious"
+		};
+		assertArrayEquals(expected, destination.result());
+	}
+	
+	@Test
+	public void superLongHyphenatedCombinedParts() {
+		MockDestination destination = new MockDestination();
+		ParagrapherI p = new Paragrapher(destination);
+		p.setWidth(10);
+		p.addWord(new String[] {
+				"sup",
+				"ercalifr",
+				"agil",
+				"ist",
+				"icexp",
+				"ialidocious"
+		});
+		p.ship();
+		String[] expected = {
+				"sup-",
+				"ercalifr-",
+				"agilist-",
+				"icexp-",
+				"ialidocious"
+		};
+		assertArrayEquals(expected, destination.result());
+	}
+	
+	@Test
+	public void partsThenFull() {
+		MockDestination destination = new MockDestination();
+		ParagrapherI p = new Paragrapher(destination);
+		p.setWidth(10);
+		p.addWord(new String[] {
+				"Exc",
+				"elle",
+				"nt",
+				"ly"
+				
+		});
+		p.addWord("done,");
+		p.addWord("guys");
+		p.ship();
+		String[] expected = new String [] {
+			"Excellent-",
+			"ly done,",
+			"guys"
 		};
 		assertArrayEquals(expected, destination.result());
 	}
