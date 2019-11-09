@@ -110,9 +110,7 @@ public class Paragrapher implements ParagrapherI {
 		}
 	}
 
-	/**
-	 * Ships formatted paragraph to destination.
-	 */
+	
 	@Override
 	public void ship() {
 		ArrayList<String> empty = new ArrayList<>();
@@ -126,7 +124,8 @@ public class Paragrapher implements ParagrapherI {
 	}
 	
 	/**
-	 * Returns the character length of the last (current) line in paragraph. If no lines, this method will make one.
+	 * Returns the character length of the last (current) line in paragraph. 
+	 * If no lines, this method will initialize one.
 	 */
 	private int getCurrentLineLength() {
 		if(this.lines.isEmpty) {
