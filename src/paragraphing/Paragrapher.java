@@ -14,7 +14,7 @@ public class Paragrapher implements ParagrapherI {
 	private DestinationI dest;
 	
 	/**
-	 * Constructor for paragraph. Paragraph is initilized with default width and an empty line.
+	 * Constructor for paragraph. Paragraph is initialized with default width and an empty line.
 	 */
 	public Paragrapher(DestinationI inDest) {
 		this.width = 20;
@@ -109,15 +109,25 @@ public class Paragrapher implements ParagrapherI {
 		}
 	}
 
+	/**
+	 * Ships formatted paragraph to destination.
+	 */
 	@Override
 	public void ship() {
-		dest.addLines(lines.toArray(new String[lines.size()]));
+		ArrayList<String> empty = new ArrayList<>();
+		empty.add("");
+		// If nothing was copied, send an empty array, otherwise send the lines
+		if (this.lines.equals(empty)) {
+			this.dest.addLines(new String[] {});
+		} else {
+			this.dest.addLines(this.lines.toArray(new String[this.lines.size()]));
+		}
 	}
 	
 	/**
 	 * Returns the character length of the last (current) line in paragraph.
 	 */
 	private int getCurrentLineLength() {
-		this.lines.get(this.lines.size() - 1).length();
+		return this.lines.get(this.lines.size() - 1).length();
 	}
 }
