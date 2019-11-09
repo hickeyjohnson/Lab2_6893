@@ -30,7 +30,13 @@ public class Paragrapher implements ParagrapherI {
 	public void addWord(String[] parts) {
 		for(int i = 0; i < parts.length; i++) {
 			int partLength = parts[i].length();
-			int lineLength = lines.get((lines.size() - 1)).length();
+			int lineLength;
+			if (this.lines.isEmpty()) {
+				lineLength = 0;
+				lines.add("");
+			} else {
+				lineLength = this.lines.get(this.lines.size() - 1).length();
+			}
 			
 			if(lineLength == 0) {
 				// if it's the start of the line
