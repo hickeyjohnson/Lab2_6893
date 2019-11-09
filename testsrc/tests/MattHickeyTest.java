@@ -63,6 +63,7 @@ public class MattHickeyTest {
 		assertArrayEquals(expected, destination.result());
 	}
 	
+	@Test
 	public void givenExample1() {
 		MockDestination destination = new MockDestination();
 		ParagrapherI p = new Paragrapher(destination);
@@ -81,6 +82,7 @@ public class MattHickeyTest {
 		
 	}
 	
+	@Test
 	public void givenExample2() {
 		// One word, two hyphenation points.
 		// Tests the decision to shorten line because hyphen would make it too long.
