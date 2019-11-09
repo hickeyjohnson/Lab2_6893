@@ -1,4 +1,4 @@
-//Matthew Hickey + Nathaniel Johnson
+// Matthew Hickey + Nathaniel Johnson
 package paragraphing;
 
 import java.util.ArrayList;
@@ -128,7 +128,7 @@ public class Paragrapher implements ParagrapherI {
 	 * If no lines, this method will initialize one.
 	 */
 	private int getCurrentLineLength() {
-		if(this.lines.isEmpty) {
+		if(this.lines.isEmpty()) {
 			lines.add("");
 		}
 		return this.lines.get(this.lines.size() - 1).length();
@@ -139,6 +139,6 @@ public class Paragrapher implements ParagrapherI {
 	 * @param - text: String to be appended to the line
 	 */
 	private void addToLine(String text) {
-		lines.set(lines.size() - 1, lines.get(lines.size() - 1).concat(text);
+		lines.set(lines.size() - 1, lines.get(lines.size() - 1).concat(text));
 	}
 }

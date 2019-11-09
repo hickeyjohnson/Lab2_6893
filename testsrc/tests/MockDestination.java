@@ -1,4 +1,4 @@
-//Matthew Hickey + Nathaniel Johnson
+// Matthew Hickey + Nathaniel Johnson
 package tests;
 
 import paragraphing.DestinationI;
